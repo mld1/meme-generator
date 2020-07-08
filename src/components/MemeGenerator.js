@@ -26,6 +26,10 @@ class MemeGenerator extends React.Component {
 
   handleChange(event) {
     console.log("Clickity clickty");
+    let { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   }
 
   handleSubmit(event) {
@@ -44,9 +48,19 @@ class MemeGenerator extends React.Component {
       <div>
         <row>
           <form className="meme-form" onSubmit={this.handleSubmit}>
-            <input className="col-5" name="topText" value="" />
+            <input
+              onChange={this.handleChange}
+              className="col-5"
+              name="topText"
+              value={this.state.topText}
+            />
             <span className="col-1"></span>
-            <input className="col-5" />
+            <input
+              value={this.state.bottomText}
+              name="bottomText"
+              onChange={this.handleChange}
+              className="col-5"
+            />
             <br />
             <br />
             <button>Meme!</button>
@@ -54,10 +68,12 @@ class MemeGenerator extends React.Component {
         </row>
         <br />
         <br />
-        <row className="col-8 center">
+        <row className="col-8 center meme">
           {this.state.img === "" ? null : (
             <img src={this.state.img} alt="meme pic"></img>
           )}
+          <h2 className="top">{this.state.topText}</h2>
+          <h2 className="bottom">{this.state.bottomText}</h2>
         </row>
       </div>
     );
